@@ -1,0 +1,21 @@
+seenoevil/**                 Server
+static/**                    Web static assets and JS for Web and CLI clients
+static/lib.js                Encrypt/Decrypt methods, shared lib between Web and CLI clients
+static/app.js                Web client JS
+static/styles.css            CSS styles
+seenoevil/templates          HTML templates
+bin/**                       CLI Client
+docs/**                      Documentation
+secrets.db                   Default database
+.env                         Environment variables
+
+README.md                    Documentation
+.purposefile                 Configures purposefile
+.gitignore                   Configures git to ignore certain files
+app.json                     Heroku
+Procfile                     Heroku
+Pipfile*                     Python dependencies
+setup.py                     Python package
+LICENSE                      License for package
+.git/**                      Internal git state & config
+.venv/**                     Python virtual environment

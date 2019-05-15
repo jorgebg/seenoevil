@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Client side encrypted pastebin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🙈 See No Evil</title>
+  <link rel="icon" href="data:;base64,="><link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/sjcl.js"></script>
+  <script src="/static/lib.js"></script>
+  <script src="/static/app.js"></script>
+</head>
+
+<body>
+  <div class="seenoevil">
+    <header><h1 title="See No Evil"><a href="{{ url_for('create') }}">🙈</a></h1></header>
+    <main>
+    {% block content %}
+    <div>
+    {{ message or error }}
+    </div>
+    {% endblock %}
+    <div>
+    {% if request.path != url_for('create') %}<a href="/">New secret</a>{% endif %}
+    </div>
+    </main>
+		<footer>
+      Developed by <a href="https://twitter.com/neuralhacker">Jorge Barata</a> • <a href="https://github.com/jorgebg/seenoevil">Source</a> • <a href="https://github.com/jorgebg/seenoevil/blob/master/LICENSE">GPLv2</a>
+		</footer>
+  </div>
+</body>
+</html>

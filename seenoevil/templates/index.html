@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>See No Evil</title>
+  <link rel="icon" sizes="any" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%2046%2045'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3EAfter%20Dark%3C/title%3E%3Cpath%20d='M.708%2045L23%20.416%2045.292%2045H.708zM35%2038L23%2019%2011%2038h24z'%20fill='%23000'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/sjcl.js"></script>
+  <script src="/static/lib.js"></script>
+  <script src="/static/web.js"></script>
+</head>
+
+<body>
+  <div class="seenoevil">
+    <header><h1 title="See No Evil">🙈</h1></header>
+    <main>
+      <form method="POST">
+        <div><input placeholder="Secret" name="rawData" required autofocus></div>
+        <div>
+          <label>Expires after</label>
+          <select name="expiration" >
+            {% for n in range(1, 7) %}
+            <option value="{{n}}" {% if n == 3 %}selected{% endif %}>{{ n }} days</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label>Self-destructs after</label>
+          <select name="reads">
+            {% for n in range(1, 7) %}
+            <option value="{{n}}" {% if n == 3 %}selected{% endif %}>{{ n }} reads</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div><input type="submit" value="Send" disabled></div>
+      </form>
+      <div class="loading" hidden>Encrypting</div>
+      <div id="result" hidden>
+        <label for="url">Link</label>
+        <input id="url" type="text">
+        <button>Copy text</button>
+      </div>
+    </main>
+		<footer>
+      Developed by <a href="https://twitter.com/neuralhacker">Jorge Barata</a> • <a href="https://github.com/jorgebg/secrets">Source Code</a> • <a href="https://github.com/jorgebg/secrets/blob/master/LICENSE">MIT License</a>
+		</footer>
+  </div>
+
+  <script>
+    (function() {
+      const secret = {{ secret | tojson }};
+      web(secret);
+    })();
+  </script>
+</body>
+</html>

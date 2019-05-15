@@ -1,0 +1,25 @@
+@startuml
+hide footbox
+
+actor user
+participant browser
+participant server
+database database
+
+user -> browser ++    : open app
+browser -> server ++  : ""HTTP GET /""
+server --> browser -- : ""create.html""
+browser --> user --   : show form
+
+user -> browser ++     : send ""data""
+browser -> browser     : ""client_key = random_key()""\n""encrypted_data = encrypt(data, client_key)""
+browser -> server ++   : ""HTTP POST / encrypted_data""
+server -> database ++  : ""INSERT INTO secret VALUES encrypted_data""
+database --> server -- : ""secret""
+server -> server       : ""token = safe_serialize(secret.id, server_key)""
+server -> server       : ""base_url = "/secret/{token}"""
+server --> browser --  : ""base_url""
+browser -> browser     : ""url = "{base_url}#{client_key}"""
+browser --> user --    : show ""url"" to share
+
+@enduml

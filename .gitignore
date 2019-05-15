@@ -1,0 +1,5 @@
+.venv
+.env
+secrets.db
+__pycache__/
+docs/plantuml.jar

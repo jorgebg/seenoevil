@@ -1,0 +1,31 @@
+{
+    "name": "See No Evil",
+    "description": "'Client side encrypted pastebin",
+    "repository": "https://github.com/jorgebg/seenoevil",
+    "keywords": [
+        "python",
+        "sanic"
+    ],
+    "env": {
+        "SECRET_KEY": {
+            "description": "A secret key for creating safe URLs.",
+            "generator": "secret"
+        },
+        "HOST": {
+            "value": "0.0.0.0"
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "addons": [
+        {
+            "plan": "heroku-postgresql",
+            "options": {
+                "version": "9.5"
+            }
+        }
+    ]
+}

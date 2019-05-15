@@ -1,0 +1,94 @@
+body {
+  background: #445566;
+  font-family: 'Open Sans', sans-serif;
+  color: #202020;
+}
+
+a {
+  color: #05668D;
+}
+
+.seenoevil {
+  max-width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+header, footer {
+  background: #BEC2C4;
+  text-align: center;
+}
+
+header {
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+footer {
+  font-size: 0.9em;
+  padding: 10px;
+}
+
+h1 {
+  margin: 0;
+}
+
+h1 a{
+  text-decoration: none;
+}
+
+main {
+  background: #E7ECEF;
+  padding: 12px;
+}
+
+.seenoevil div {
+  padding: 12px;
+}
+
+label {
+  width: 50%;
+  display: inline-block;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  outline: 0;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+select {
+  font-family: inherit;
+  font-size: 0.95em;
+  width: 50%;
+  float: right;
+}
+
+input[type="submit"] {
+  background: #05668D;
+  border-color: transparent;
+  color: #fff;
+}
+
+input[type="submit"]:hover {
+  background: #17c;
+}
+
+select:focus, input:focus {
+  border-color: #05a;
+}
+
+input[type="submit"]:disabled {
+  background: #aaa;
+  cursor: default;
+}
+
+main > div {
+  text-align: center;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,34 @@
+@startuml
+hide footbox
+
+actor user
+participant browser
+participant server
+database database
+
+user -> browser ++     : open shared url\n""/secret/{token}#{client_key}""
+browser -> server ++   : ""HTTP GET /secret/{token}""
+server -> server       : ""id = safe_unserialize(token, server_key)""
+server -> database ++  : ""UPDATE secret""\n""WHERE id=id AND expiration < now""\n""SET reads=reads-1""
+database --> server -- : ""updated""
+
+alt ""if not updated""
+  note over server, browser #DDDDDD: secret doesn't exist or has expired
+  server --> browser : ""base.html HTTP 404 Not Found""
+  browser --> user   : secret not found
+end
+
+server -> database ++  : ""SELECT * FROM secret WHERE id=id""
+database --> server -- : ""secret""
+
+alt ""if secret.reads <= 0""
+  note over server, database #DDDDDD: no more reads allowed
+  server -> database ++  : ""DELETE FROM secret WHERE id=id""
+  database --> server -- : ""deleted""
+end
+
+server --> browser -- : ""show.html encrypted_data""
+browser -> browser    : ""data = decrypt(encrypted_data, client_key)""
+browser --> user   -- : show ""data""
+
+@enduml
