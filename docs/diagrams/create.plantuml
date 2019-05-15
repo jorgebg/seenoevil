@@ -16,8 +16,7 @@ browser -> browser     : ""client_key = random_key()""\n""encrypted_data = encry
 browser -> server ++   : ""HTTP POST / encrypted_data""
 server -> database ++  : ""INSERT INTO secret VALUES encrypted_data""
 database --> server -- : ""secret""
-server -> server       : ""token = safe_serialize(secret.id, server_key)""
-server -> server       : ""base_url = "/secret/{token}"""
+server -> server       : ""token = safe_serialize(secret.id, server_key)""\n""base_url = "/secret/{token}"""
 server --> browser --  : ""base_url""
 browser -> browser     : ""url = "{base_url}#{client_key}"""
 browser --> user --    : show ""url"" to share
