@@ -33,7 +33,7 @@ REQUIRED = [
 # Check SJCL version
 # https://raw.githubusercontent.com/bitwiseshiftleft/sjcl/1.0.8/sjcl.js
 SJCL_SHA256 = 'd09a8688f37c7442bb1e6699b46efb191d9281ef05a492586fa0f54dc4e5110a'
-with open('seenoevil/static/sjcl.js', 'rb') as f:
+with open('static/sjcl.js', 'rb') as f:
     assert hashlib.sha256(f.read()).hexdigest() == SJCL_SHA256
 
 # The rest you shouldn't have to touch too much :)
@@ -114,7 +114,6 @@ setup(
         'bin/seenoevil',
     ],
     install_requires=REQUIRED,
-    extras_require=EXTRAS,
     include_package_data=True,
     license='GPLv2',
     classifiers=[
