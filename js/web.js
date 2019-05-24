@@ -1,10 +1,10 @@
 var $ = Element.prototype.$ = function (selector) {
-    return (this == window ? document : this).querySelector(selector);
+    console.log((this || document));
+    return (this || document).querySelector(selector);
 };
 
 function setupCreate() {
   var $secret = $('form#secret');
-
   $secret.onsubmit = function() {
     var fd = new FormData($secret);
     var vault = encrypt(fd.get('rawData'));
@@ -14,7 +14,7 @@ function setupCreate() {
       reads: fd.get('reads'),
     };
 
-    for (var i in $secret.elements) {
+    for (var i = 0; i < $secret.elements.length; i++) {
         $secret.elements[i].disabled = true;
     }
 

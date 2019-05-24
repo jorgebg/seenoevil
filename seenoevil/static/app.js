@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";var sjcl={cipher:{},hash:{},keyexchange:{},mode:{},misc:{},codec:{},exception:{corrupt:function(a){this.toString=function(){return"CORRUPT: "+this.message};this.message=a},invalid:function(a){this.toString=function(){return"INVALID: "+this.message};this.message=a},bug:function(a){this.toString=function(){return"BUG: "+this.message};this.message=a},notReady:function(a){this.toString=function(){return"NOT READY: "+this.message};this.message=a}}};
 sjcl.cipher.aes=function(a){this.s[0][0][0]||this.O();var b,c,d,e,f=this.s[0][4],g=this.s[1];b=a.length;var h=1;if(4!==b&&6!==b&&8!==b)throw new sjcl.exception.invalid("invalid aes key size");this.b=[d=a.slice(0),e=[]];for(a=b;a<4*b+28;a++){c=d[a-1];if(0===a%b||8===b&&4===a%b)c=f[c>>>24]<<24^f[c>>16&255]<<16^f[c>>8&255]<<8^f[c&255],0===a%b&&(c=c<<8^c>>>24^h<<24,h=h<<1^283*(h>>7));d[a]=d[a-b]^c}for(b=0;a;b++,a--)c=d[b&3?a:a-4],e[b]=4>=a||4>b?c:g[0][f[c>>>24]]^g[1][f[c>>16&255]]^g[2][f[c>>8&255]]^g[3][f[c&
 255]]};
@@ -73,74 +72,64 @@ function decrypt(key, data) {
     var decrypted = sjcl.decrypt(key, data, {ts: 128, ks: 256});
     return decrypted;
 }
-const URL = require('url').URL;
-
-const server = new URL(process.env.HOST || 'http://127.0.0.1:8000');
-const http = server.protocol == 'https:' ? require('https') : require('http');
-const options = {
-  hostname: server.hostname,
-  port: server.port,
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Accept': 'application/json',
-  },
+var $ = Element.prototype.$ = function (selector) {
+    console.log((this || document));
+    return (this || document).querySelector(selector);
 };
 
-function create(rawData, expiration=3, reads=3) {
-  const vault = encrypt(rawData);
-  const secret = {data: vault.data, expiration, reads};
-  options.method = 'POST';
-  const req = http.request(options, (res) => {
-    res.on('data', (d) => {
-      checkError(res, d);
-      const path = JSON.parse(d).path + '#' + vault.key;
-      process.stdout.write(JSON.stringify({path}));
-    });
-  });
-  req.write(JSON.stringify(secret));
-  req.end();
-}
+function setupCreate() {
+  var $secret = $('form#secret');
+  $secret.onsubmit = function() {
+    var fd = new FormData($secret);
+    var vault = encrypt(fd.get('rawData'));
+    var secret = {
+      data: vault.data,
+      expiration: fd.get('expiration'),
+      reads: fd.get('reads'),
+    };
 
-function show(url) {
-  let path, hash;
-  try {
-    ({ pathname, hash } = new URL(url));
-    hash = hash.slice(1);
-  } catch(e) {
-    ([ pathname, hash ] = url.split('#'));
-  }
-  options.path = pathname;
-  const req = http.request(options, (res) => {
-    res.on('data', (d) => {
-      checkError(res, d);
-      const secret = JSON.parse(d);
-      secret.data = decrypt(hash, secret.data);
-      process.stdout.write(JSON.stringify(secret));
-    });
-  });
-  req.end();
-}
-
-function checkError(res, d) {
-    if (res.statusCode !== 200) {
-      process.stdout.write(d);
-      process.exit(1);
+    for (var i = 0; i < $secret.elements.length; i++) {
+        $secret.elements[i].disabled = true;
     }
-}
 
-function usage() {
-  process.stdout.write(
-`usage: seenoevil create DATA [EXPIRATION[ READS]]
-       seenoevil show URL
-`);
-}
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/', true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.onload = function() {
+      var url = window.location.origin + JSON.parse(this.responseText).path + '#' + vault.key;
+      $secret.hidden = true;
+      clipboard(url);
+    };
+    xhr.send(JSON.stringify(secret));
+    return false;
+  }
+  $secret.$('input[type=submit]').disabled = false;
+};
 
+function setupShow(data) {
+  var key = window.location.hash.substr(1);
+  clipboard(decrypt(key, data));
+};
 
-const action = process.argv[2];
-const args = process.argv.slice(3);
-const actions = {create, show};
-if (args.length == 0 || process.argv.some((el) => ['-h', '--help'].includes(el))) {
-  usage();
-} else {
-  actions[action](...args);
+function clipboard(content) {
+  var $clipboard = $('form#clipboard');
+  var $submit = $clipboard.$('input[type=submit]');
+  var $content = $clipboard.$('input[name=content]');
+  $clipboard.hidden = false;
+  $clipboard.onsubmit = function() {
+    document.execCommand("copy");
+    var previousValue = $submit.value;
+    $submit.value = 'Copied!';
+    $submit.disabled = true;
+    setTimeout(function(){
+      $submit.value = previousValue;
+      $submit.disabled = false;
+    }, 1000);
+    return false;
+  };
+  $content.value = content;
+  $content.focus();
+  $content.select();
+  $submit.disabled = false;
 }

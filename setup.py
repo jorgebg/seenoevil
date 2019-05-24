@@ -19,7 +19,7 @@ URL = 'https://github.com/jorgebg/seenoevil'
 EMAIL = 'jorge.barata.gonzalez@gmail.com'
 AUTHOR = 'Jorge Barata'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -29,12 +29,6 @@ REQUIRED = [
     "itsdangerous==1.1.0",
     "environs==4.1.0",
 ]
-
-# Check SJCL version
-# https://raw.githubusercontent.com/bitwiseshiftleft/sjcl/1.0.8/sjcl.js
-SJCL_SHA256 = 'd09a8688f37c7442bb1e6699b46efb191d9281ef05a492586fa0f54dc4e5110a'
-with open('static/sjcl.js', 'rb') as f:
-    assert hashlib.sha256(f.read()).hexdigest() == SJCL_SHA256
 
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
@@ -109,12 +103,14 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    py_modules=['seenoevil'],
+    packages=['seenoevil'],
+    package_data={
+        'seenoevil': ['static/*', 'templates/*'],
+    },
     scripts=[
         'bin/seenoevil',
     ],
     install_requires=REQUIRED,
-    include_package_data=True,
     license='GPLv2',
     classifiers=[
         # Trove classifiers

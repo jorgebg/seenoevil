@@ -12,7 +12,7 @@ from .model import Secret
 from . import settings
 
 app = Sanic('seenoevil')
-app.static('/static', './static')
+app.static('/static', settings.STATIC_PATH)
 jinja = SanicJinja2(app)
 last_cleanup = multiprocessing.Value('f', time.time())
 
@@ -20,6 +20,7 @@ last_cleanup = multiprocessing.Value('f', time.time())
 @app.route("/", methods=['GET', 'POST'])
 async def create(request):
     if request.method == 'POST':
+        request.json or abort(400)
         try:
             secret = Secret.deserialize(request.json)
         except (TypeError, ValueError):

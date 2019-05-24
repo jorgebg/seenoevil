@@ -3,3 +3,6 @@
 secrets.db
 __pycache__/
 docs/plantuml.jar
+*.egg-info/
+dist/
+build/
