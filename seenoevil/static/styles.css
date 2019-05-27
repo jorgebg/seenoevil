@@ -51,7 +51,7 @@ label {
   display: inline-block;
 }
 
-input {
+input, textarea {
   box-sizing: border-box;
   width: 100%;
   border-width: 1px;
@@ -60,6 +60,7 @@ input {
   padding: 16px;
   font-family: inherit;
   font-size: 0.95em;
+  height: 52px;
 }
 
 select {
@@ -79,7 +80,7 @@ input[type="submit"]:hover {
   background: #17c;
 }
 
-select:focus, input:focus {
+select:focus, textarea:focus, input:focus {
   border-color: #05a;
 }
 

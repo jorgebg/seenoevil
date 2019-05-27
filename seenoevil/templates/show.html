@@ -3,8 +3,8 @@
 {% block content %}
 <form id="clipboard" method="POST">
   <div>
-    <p>Hit [Ctrl]+[c] or [Enter] to copy</p>
-    <input name="content" placeholder="Decrypting..." readonly>
+    <p>Hit [Ctrl]+[c] to copy</p>
+    <textarea name="content" placeholder="Decrypting..." readonly></textarea>
   </div>
   <div><label>Expiration:</label> {{ expiration }} hours</div>
   <div><label>Self-destructs after:</label> {{ reads }} reads</div>

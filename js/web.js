@@ -1,5 +1,4 @@
 var $ = Element.prototype.$ = function (selector) {
-    console.log((this || document));
     return (this || document).querySelector(selector);
 };
 
@@ -30,7 +29,7 @@ function setupCreate() {
     xhr.send(JSON.stringify(secret));
     return false;
   }
-  $secret.$('input[type=submit]').disabled = false;
+  $secret.$('[type=submit]').disabled = false;
 };
 
 function setupShow(data) {
@@ -40,8 +39,8 @@ function setupShow(data) {
 
 function clipboard(content) {
   var $clipboard = $('form#clipboard');
-  var $submit = $clipboard.$('input[type=submit]');
-  var $content = $clipboard.$('input[name=content]');
+  var $submit = $clipboard.$('[type=submit]');
+  var $content = $clipboard.$('[name=content]');
   $clipboard.hidden = false;
   $clipboard.onsubmit = function() {
     document.execCommand("copy");

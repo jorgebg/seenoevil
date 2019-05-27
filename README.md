@@ -89,6 +89,14 @@ The CLI prints JSON to the STDOUT. Using a JSON formatter is recommended (i.e. [
 - `itsdangerous`: URL safe serializers (check `models.py::TokenField`)
 - `environs`: Environment variables (check `settings.py::env`)
 
+
+## Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jorgebg/seenoevil)
+
+For a complete list of the environment variables, please check [`settings.py`](seenoevil/settings.py).
+
+
 ## Design
 
 ### Model
@@ -128,10 +136,3 @@ secrets.db      # Default SQLite3 database
 ```
 
 For details about the folder structure please use [`purpose`](https://github.com/jamiebuilds/purposefile).
-
-
-## Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jorgebg/seenoevil)
-
-For a complete list of the environment variables, please check [`settings.py`](seenoevil/settings.py).

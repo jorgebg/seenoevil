@@ -2,7 +2,7 @@
 
 {% block content %}
 <form id="secret" method="POST">
-  <div><input placeholder="Secret" name="rawData" maxlength="max_data_length" required autofocus></div>
+  <div><textarea placeholder="Secret" name="rawData" maxlength="max_data_length" required autofocus></textarea></div>
   <div>
     <label>Expires after</label>
     <select name="expiration" >
@@ -27,7 +27,7 @@
 </form>
 <form id="clipboard" method="POST" hidden>
   <div>
-    <p>Hit [Ctrl]+[c] or [Enter] to copy</p>
+    <p>Hit [Ctrl]+[c] to copy</p>
     <input name="content" type="text">
   </div>
   <div><input type="submit" value="Copy link" disabled></div>
