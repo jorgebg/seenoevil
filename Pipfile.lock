@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "80494bc144b938becc827a912db1106ff1cd843927b1474a59c94504efd5f445"
+            "sha256": "3e5edbf34b1f95fbed80b347a478a5faf3126e9a7be80355d5a61bbbf71e2728"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -22,14 +22,6 @@
                 "sha256:1e644c2573f953664368de28d2aa4c89dfd64550429d0c27c4680ccd3aa4985d"
             ],
             "version": "==0.4.0"
-        },
-        "environs": {
-            "hashes": [
-                "sha256:9b752da76f3d470dea21b7abfe44a836c775bbb3ca50f50bfc4b188c49ac633a",
-                "sha256:a69695630145bf559baedd1ac99312abd27cca55cbc1dca7f7a6a2bae7e1570c"
-            ],
-            "index": "pypi",
-            "version": "==4.1.0"
         },
         "httptools": {
             "hashes": [
@@ -84,13 +76,6 @@
                 "sha256:e249096428b3ae81b08327a63a485ad0878de3fb939049038579ac0ef61e17e7"
             ],
             "version": "==1.1.1"
-        },
-        "marshmallow": {
-            "hashes": [
-                "sha256:0e497a6447ffaad55578138ca512752de7a48d12f444996ededc3d6bf8a09ca2",
-                "sha256:e21a4dea20deb167c723e0ffb13f4cf33bcbbeb8a334e92406a3308cedea2826"
-            ],
-            "version": "==2.19.2"
         },
         "multidict": {
             "hashes": [
@@ -166,13 +151,6 @@
             ],
             "index": "pypi",
             "version": "==2.8.2"
-        },
-        "python-dotenv": {
-            "hashes": [
-                "sha256:156f218846bd90e0d537915545cde4a987947c2cecc628b50f9955fdde72534a",
-                "sha256:6640acd76e6cab84648e4fec16c9d19de6700971f9d91d045e7120622167bfda"
-            ],
-            "version": "==0.10.2"
         },
         "sanic": {
             "hashes": [

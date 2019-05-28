@@ -1,34 +1,37 @@
-import os
+from os import environ, path
+from sanic.log import logger
 
-from environs import Env
 
+ENV_FILE = ".env"
 
-ENV_FILE = '.env'
+SECRET_KEY = environ.get("SECRET_KEY")
 
-env = Env()
-
-if not (env.str("SECRET_KEY", '') or os.path.exists(ENV_FILE)):
+if not SECRET_KEY:
     from secrets import choice
     import string
+
     alphabet = string.ascii_letters + string.digits + string.punctuation
-    secret_key = ''.join(choice(alphabet) for i in range(64))
-    with open(ENV_FILE, 'w') as f:
-        f.write(f'SECRET_KEY="{secret_key}"\n')
+    SECRET_KEY = "".join(choice(alphabet) for i in range(64))
+    if path.exists(ENV_FILE):
+        logger.warn(
+            'Unable to persist SECRET_KEY, `.env` file already exists. Are you running `pipenv run`?'
+            f' Temporal value: "{SECRET_KEY}".',
+        )
+    else:
+        with open(ENV_FILE, "w") as f:
+            f.write(f'SECRET_KEY="{SECRET_KEY}"\n')
 
 
-env.read_env(ENV_FILE)
+DATABASE_URL = environ.get("DATABASE_URL", "sqlite:///secrets.db")
+STATIC_PATH = environ.get("STATIC_PATH", path.join(path.dirname(__file__), "static"))
 
-SECRET_KEY = env.str("SECRET_KEY")
-DATABASE_URL = env.str("DATABASE_URL", "sqlite:///secrets.db")
-STATIC_PATH = env.str("STATIC_PATH", os.path.join(os.path.dirname(__file__), 'static'))
-
-MAX_DATA_LENGTH = env.int("MAX_DATA_LENGTH", 2**20)
-MAX_EXPIRATION = env.int("MAX_EXPIRATION", 7 * 24)  # Hours
-MAX_READS = env.int("MAX_READS", 7)
+MAX_DATA_LENGTH = int(environ.get("MAX_DATA_LENGTH", 2 ** 20))
+MAX_EXPIRATION = int(environ.get("MAX_EXPIRATION", 7 * 24))  # Hours
+MAX_READS = int(environ.get("MAX_READS", 7))
 
 SANIC_CONFIG = {
-    'debug': env.bool("DEBUG", False),
-    'host': env.str("HOST", None),
-    'port': env.int("PORT", None),
-    'workers': env.int("WORKERS", 1),
+    "debug": environ.get("DEBUG"),
+    "host": environ.get("HOST"),
+    "port": int(environ.get("PORT", 8000)),
+    "workers": int(environ.get("WORKERS", 1)),
 }
