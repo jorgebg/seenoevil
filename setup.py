@@ -4,7 +4,6 @@
 # Note: To use the 'upload' functionality of this file, you must:
 #   $ pipenv install twine --dev
 
-import hashlib
 import io
 import os
 import sys
@@ -19,7 +18,7 @@ URL = 'https://github.com/jorgebg/seenoevil'
 EMAIL = 'jorge.barata.gonzalez@gmail.com'
 AUTHOR = 'Jorge Barata'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
