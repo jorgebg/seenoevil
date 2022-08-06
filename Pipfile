@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-sanic = "==19.3.1"
+sanic = "==20.12.7"
 sanic-jinja2 = "==0.7.4"
 peewee = "==3.9.4"
 itsdangerous = "==1.1.0"
